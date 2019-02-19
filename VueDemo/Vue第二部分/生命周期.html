@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>生命周期</title>
+		<script src="../Script/node_modules/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div @click="handleDivCilck">{{message}}</div>
+			<ul>
+				<li v-for="v in list">{{v}}</li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			const app= new Vue({
+				el:"#app",
+				data:{
+					message:"Hello VueJS",
+					list:[1,2,3,4]
+				},
+				methods:{
+					handleDivCilck(){
+						this.message="Hi VueJs";
+					}
+				},
+				//template:"<div>1234</div>",	 模板			
+				beforeCreate() {
+					console.log("beforeCreate()"+this.message);
+				},
+				created() {
+					console.log("created()"+this.message);
+				},
+				beforeMount(){
+					console.log("beforeMount()");
+				},
+				mounted() {
+					//console.log(this.$el);
+					console.log("mounted()");
+				},
+				beforeUpdate() {
+					console.log("beforeUpdate()");
+				},
+				updated() {
+					console.log("updated()");
+				},
+				beforeDestroy() {
+					console.log("beforeDestroy()");
+				},
+				destroyed() {
+					console.log("destroyed()");
+				}
+			});
+			//app.$mount("#app");
+			app.$destroy();
+		</script>
+	</body>
+</html>

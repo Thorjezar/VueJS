@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>嵌套组件</title>
+		<script src="../Script/node_modules/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<grandpa></grandpa>
+		</div>
+		<script type="text/javascript">
+		//组件的创建
+		let grandson={
+			template:"<div>grandson</div>"
+		};
+		
+		let father={
+			template:"<div>father<grandson></grandson></div>",
+			components:{
+				//创建孙子组件
+				grandson
+			}
+		};
+		
+		let grandpa ={
+			template:"<div>grandpa<father></father></div>",
+			components:{
+				father  //ES6等价于father:father
+			}
+		};
+				
+		 new Vue({
+		 	el:"#app",
+			data:{
+				message:"Hello Vue"
+			},
+			// 注册
+			components:{
+				grandpa //ES6等价于grandpa:grandpa
+			}
+			
+		 })
+	
+		</script>
+	</body>
+</html>

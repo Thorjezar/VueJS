@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>组件基础2</title>
+		<script src="../Script/node_modules/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<h1>{{message}}</h1>
+			<my-comp></my-comp>
+			<my-comp2></my-comp2>
+		</div>
+		<script type="text/javascript">
+		/*
+			组件定义方式
+				方式一
+					全局组件
+						* 在任何组件中都可以使用
+						* 通用组件定义成全局组件，比如轮播图、分页、tab标签页
+						* Vue.component("组件名",{组件的选项template data methods computed});
+				方式二
+					局部组件
+						* 组件可以有自己的子组件 只能在自己的父组件中使用
+						* 不通用的组件定义为局部组件
+						* 组件实例的components选项定义子组件
+		*/
+		 Vue.component("my-comp",{
+			 data(){
+				return {
+					message:"world"
+				}
+			 },
+			 template:'<div><h1>Hello</h1><h1>{{message}}</h1><foo></foo></div>',
+			 components:{
+				 //在当前全局组件中定义一个子组件
+				 foo:{
+					 template:"<div><p>my-comp子组件</p><p>{{message}}</p></div>",
+					 data(){
+						 return {
+							 message:"foo 组件自己的message"
+						 }
+					 },
+					 methods:{
+						 
+					 },
+					 watch:{
+						 						 
+					 }									 
+				 }
+			 }		 
+		 });
+		 
+		 		 Vue.component("my-comp2",{
+		 			 data(){
+		 				return {
+		 					message:"my-comp2的message"
+		 				}
+		 			 },
+		 			 template:'<div><h1>Hello</h1><h1>{{message}}</h1></div>'		 
+		 });
+		 
+		 new Vue({
+		 	el:"#app",
+			data:{
+				message:"Hello Vue"
+			}
+			
+		 })
+	
+		</script>
+	</body>
+</html>

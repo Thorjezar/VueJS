@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>列表渲染</title>
+		<script src="../Script/node_modules/vue/dist/vue.js"></script>
+
+	</head>
+	<body>
+		<div id="app">
+			<p>{{message}}</p>
+			
+			<ul>
+				<li v-for="item in languages">{{item}}</li>  
+			</ul>
+			<ul>
+				<li v-for="item in students">{{item.id}}-{{item.name}}-{{item.age}}</li>
+			</ul>
+		</div>
+		
+		<script>
+			const app=new Vue({
+				el:"#app",
+				data:{
+					message:"Hi I am lilei",
+					languages:["Java","PHP","python"],
+					students:[{
+						id:"s0001",
+						name:"张三",
+						age:"19"
+					},{
+						id:"s0002",
+						name:"李四",
+						age:"13"
+						},{
+							id:"s0003",
+							name:"王五",
+							age:"26"
+						}]
+				}
+			})
+		</script>
+	</body>
+</html>

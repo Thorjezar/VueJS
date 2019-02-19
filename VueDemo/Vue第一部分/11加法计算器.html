@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>加法计算器</title>
+		<script src="../Script/node_modules/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<p>单机=按钮计算两个数的和</p>
+			<input type="text" v-model.number="num1"/>
+			<span>
+				+
+			</span>
+			<input type="text" v-model.number="num2"/>
+			<button @click="getSum">=</button>
+			<!-- <strong>{{num1+num2}}</strong> -->
+			<strong>{{sum}}</strong>
+		</div>
+		<script>
+			new Vue({
+				el:"#app",
+				data:{
+					num1:0,
+					num2:0,
+					sum:0
+				},
+				methods:{
+					getSum:function(){
+						this.sum=this.num1+this.num2;
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

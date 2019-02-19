@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="../Script/node_modules/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			{{message}}
+		</div>
+		<script>
+			const app=new Vue({
+				el:"#app",
+				data:{
+					message:"HI my vue!!!"
+				}
+			});
+			app.message="I love Vuejs";
+		</script>
+	</body>
+</html>

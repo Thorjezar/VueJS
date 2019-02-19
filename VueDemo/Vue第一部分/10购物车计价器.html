@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>购物车计价器</title>
+		<script src="../Script/node_modules/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<p>实时交互计算总价</p>
+			<p>单价：<input type="text" v-model="prise" /></p>
+			<p>数量：<button @click="handleClick">-</button>{{count}}<button @click="count++">+</button></p>
+			<p>总价:{{prise*count}}</p>
+		</div>
+		<script>
+			new Vue({
+				el:"#app",
+				data:{
+					prise:10,
+					count:6
+					
+				},
+				methods:{
+					handleClick:function(){
+						this.count--;
+						if(this.count<0)
+						{
+							this.count=0;
+						}
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>v-if</title>
+		<script src="../Script/node_modules/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div class="root">
+			<div v-if="value>=90">
+				优秀
+			</div>
+			<div v-else-if="value>=60">
+				及格
+			</div>
+			<div v-else>
+				不及格
+			</div>
+		</div>
+		<script type="text/javascript">
+			const app= new Vue({
+				el:".root",     
+				data:{
+					value:Math.random()*100
+				}
+			});
+		</script>
+	</body>
+</html>

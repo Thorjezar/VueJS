@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>姓名模板</title>
+		<script src="../Script/node_modules/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<p>让FullName实时展示 FristName+LastName</p>
+			FirstName:<input type="text" v-model="firstName" /><br>
+			LastName:<input type="text" v-model="lastName" /><br>
+			FullName:<strong>{{firstName+lastName}}</strong>
+		</div>
+		<script>
+			new Vue({
+				el:"#app",
+				data:{
+					firstName:"",
+					lastName:""
+				}
+			})
+		</script>
+	</body>
+</html>
