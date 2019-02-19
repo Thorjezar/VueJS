@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>父传子</title>
+		<script src="../Script/node_modules/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			parent:{{money}}
+			<!--父传子用属性传递-->
+			<!-- <son v-bind:m="money"></son> -->
+			<son :m="money"></son>
+		</div>
+		
+		<script type="text/javascript">
+		//
+		let son={
+			template:"<div>son {{m}}</div>",
+// 			data(){
+// 				return{
+// 				
+// 				}
+// 			},
+			props:["m"]   //声明使用的属性
+			
+// 			computed:{
+// 				money(){
+// 					return this.m;
+// 				}
+// 			}
+		}	
+		new Vue({
+			el:"#app",
+			components:{
+				son
+			},
+			data:{
+				money:100
+			}
+		});
+		</script>
+	</body>
+</html>
