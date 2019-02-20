@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>弹窗</title>
+		<script src="../Script/node_modules/vue/dist/vue.js"></script>
+		<style type="text/css">
+			.mask{
+				width: 100%;
+				height: 100%;
+				position: fixed;
+				top:0;
+				left:0;
+				background:rgba(0,0,0,.3);
+				
+			}
+			.dialog{
+				width:400px;
+				height: 160px;
+				background-color: white;
+				position: fixed;
+				left:50%;
+				top:50%;
+				transform: translate3d(-50%,-50%,0);
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<button @click="open">弹窗</button>
+			<modal :show="flag" @close="()=>flag=false"></modal>
+		</div>
+		<template id="dialog">
+			<div class="mask" v-show="show">
+				<div class="dialog">
+					<button @click="shutdown" >关闭</button>
+				</div>
+			</div>
+		</template>
+		<script type="text/javascript">
+			let modal={
+				template:"#dialog",
+				props:["show"],
+				methods:{
+					shutdown(){
+						this.$emit("close");
+					}
+				}
+			};
+			new Vue({
+				el:"#app",
+				components:{
+					modal // 注册组件
+				},
+				 data:{
+					 flag:false
+				 },
+				 methods:{
+					 open(){
+						 this.flag=true;
+					 }
+				 }
+			})
+		</script>
+	</body>
+</html>

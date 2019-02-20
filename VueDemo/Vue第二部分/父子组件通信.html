@@ -25,11 +25,12 @@
 					changeMsg(val){
 						this.msg=val;
 					}
-				},
-				template: "<div><p>parent component</p><input type='text' v-model='msg'></input><p>{{user.name}}</p><child v-bind:msg='msg' v-bind:user='user' @changeMsg='changeMsg'></child></div>",
+				},//@changeMsg="changeMsg"
+				template: "<div><p>parent component</p><input type='text' v-model='msg'></input><p>{{user.name}}</p><child :msg.sync='msg' v-bind:msg='msg' v-bind:user='user'></child></div>",
 				components:{
 					child:{
-						template:"<div><p>child component</p><p>{{msg}}</p><p>{{user.name}}</p><p>{{foo}}</p><button @click='handlechangemsg'>点击修改父组件的msg</button></div>",
+						template:"<div><p>child component</p><p>{{msg}}</p><p>{{user.name}}</p><p>{{foo}}</p><button @click='handlechangemsg'>点击修改父组件的msg</button></div>",		
+						//props数据也是响应式的
 						props:['msg','user'],
 						data(){
 							return {
@@ -40,13 +41,12 @@
 							handlechangemsg(){
 								this.user.name="zhangsan";
 								//发布事件
-								this.$emit("changeMsg","hello world");
+								this.$emit("update:msg","hello world");
 							}
 						}
 													
 					}
-				}
-				
+				}				
 			});
 			new Vue({
 				el:"#app",
