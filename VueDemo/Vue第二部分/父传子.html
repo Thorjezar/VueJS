@@ -16,14 +16,29 @@
 		<script type="text/javascript">
 		//
 		let son={
-			template:"<div>son {{m}}</div>",
+			// props:["m"],
+			props:{
+				m:{ //对象
+					type:[Number,Boolean],
+					/* default: 50, */
+					required: true, //此属性必须传递,不传递会调用default
+					validator(val){ //自定义校验器
+						return val>=100;
+					}
+				}
+			},
+			template:"<div>son {{m}} <button @click='handleIncrease'>+</button></div>",
 // 			data(){
 // 				return{
 // 				
 // 				}
 // 			},
-			props:["m"]   //声明使用的属性
-			
+			   //声明使用的属性
+			methods:{
+				handleIncrease(){
+					this.m=200; 
+				}
+			}
 // 			computed:{
 // 				money(){
 // 					return this.m;
@@ -36,7 +51,7 @@
 				son
 			},
 			data:{
-				money:100
+				money:50
 			}
 		});
 		</script>
