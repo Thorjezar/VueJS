@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>EventBus</title>
+		<script src="../Script/node_modules/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<com1></com1>
+			<com2></com2>
+		</div>
+		<script type="text/javascript">
+			var EventBus=new Vue();
+			// console.log(EventBus);
+			let com1={
+				template:"<div>{{color}} <button @click='changeToRed'>变红</button></div>",
+				data(){
+					return {
+						color:"red",
+						old:"red"
+					}
+				},
+				created(){
+					EventBus.$on("changeBlue",(val)=>{
+						this.color=val;
+					});
+				},
+				methods:{
+					changeToRed(){
+						EventBus.$emit("changeRed",this.old);
+					}
+				}
+			}
+			let com2={
+				template:"<div>{{color}} <button @click='changeToBlue'>变蓝</button></div>",
+				data(){
+					return {
+						color:"blue",
+						old:"blue"
+					}
+				},
+				created(){
+					EventBus.$on("changeRed",(val)=>{
+						this.color=val;
+					});
+				},
+				methods:{
+					changeToBlue(){
+						EventBus.$emit("changeBlue",this.old);
+					}
+				}
+			}
+			new Vue({
+				el:"#app",
+				data:{
+					
+				},
+				components:{
+					com1,
+					com2
+				}
+			});		
+		</script>
+	</body>
+</html>

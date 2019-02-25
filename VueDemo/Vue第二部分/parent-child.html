@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>parent-child</title>
+		<script src="../Script/node_modules/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="app" ref="div">
+			<child ref="child"></child>
+		</div>
+		<template id="child">
+			<div>
+				<ul>
+					<li v-for="item in arr">{{item}}</li>
+				</ul>
+			</div>
+		</template>
+		<script type="text/javascript">
+			new Vue({
+				el:"#app",
+				data:{
+					
+				},
+				mounted() {
+					
+					// console.log("父组件mounted")
+					this.$nextTick(function(){
+						console.log(this.$refs.child.$el.innerHTML);
+					});
+				},
+				components:{
+					child:{
+						template:"#child",
+						mounted() {
+							// console.log("子组件mounted");
+							this.arr=[50,60,70];
+						},
+						data(){
+							return {
+								arr:[20,30,40]
+							}
+						}
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
