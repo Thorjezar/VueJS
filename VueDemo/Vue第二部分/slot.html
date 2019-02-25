@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>插槽</title>
+		<script src="../Script/node_modules/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<modal><a href="">百度</a></modal>
+			<modal><h2 slot="title"></h2><p slot="content">hello world2</p></modal>
+			<modal></modal>
+		</div>
+		<template id="dialog">
+			<div>
+				<slot></slot>
+				<slot name="content">默认内容</slot>
+				<slot name="title">默认标题</slot>
+			</div>
+		</template>
+		<script type="text/javascript">
+			let modal = {
+				template:"#dialog"
+			}
+			new Vue({
+				el:"#app",
+				components:{
+					modal
+				},
+				 data:{
+					 flag:false
+				 },
+				 methods:{
+
+				 }
+			})
+		</script>
+	</body>
+</html>

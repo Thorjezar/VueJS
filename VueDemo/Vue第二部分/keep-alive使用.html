@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>keep-alive使用</title>
+		<script src="../Script/node_modules/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!-- <home></home>
+			<list></list> -->
+			<input type="radio" v-model="radio" value="home" />home
+			<input type="radio" v-model="radio" value="list" />list
+			<keep-alive>
+				<component :is="radio"></component>
+			</keep-alive>
+		</div>
+		<script type="text/javascript">
+			let home={
+				template:"<div>Home</div>",
+				beforeDestroy(){
+					alert("home被销毁");
+				}
+			}
+			let list={
+				template:"<div>List</div>",
+				beforeDestroy(){
+					alert("list被销毁");
+				}
+			}
+			new Vue({
+				el:"#app",
+				data:{
+					radio:"home"
+				},
+				components:{
+					home,
+					list
+				}
+				
+			})
+		</script>
+	</body>
+</html>
