@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue-router</title>
+		<script src="../Script/node_modules/vue/dist/vue.js"></script>
+		<script src="../Script/node_modules/vue-router/dist/vue-router.js"></script>
+		<style type="text/css">
+			.active{
+				color:green;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<router-link to="/home" tag="button">去首页</router-link>
+			<router-link to="/news" tag="button">去新闻页</router-link>
+			<router-view></router-view>
+		</div>
+		<script type="text/javascript">
+			let home ={
+				template:"<div><h1>我是首页</h1><button @click='toNewspage'>去新闻页</button></div>",
+				methods:{
+					toNewspage(){
+						this.$router.push("/news");  //强制跳转路径 
+						// this.$router.replace("/news"); 替换当前路径
+					}
+				}
+			};
+			let news={
+				template:"<div><h1>我是新闻页</h1><button @click='backpage'>去首页</button></div>",
+				methods:{
+					backpage(){
+						 this.$router.go(-1); // this.$router.back();   
+					}
+				}
+			};
+			
+			//路由表 配置的是路径和组件关系
+			let routes = [{
+				path:"/home",
+				component:home  //页面级组件
+			},{
+				path:"/news",
+				component:news
+			}
+			];
+			let router = new VueRouter({
+				routes,  //相当于routes:routes
+				// mode:"history", 上线使用这个模式
+				linkActiveClass:"active" //更改默认样式类名 默认叫router-link-active
+			});
+			let vm = new Vue({
+				el:"#app",
+				router   //相当于router:router 每个组件都有一个$router的属性 （里面都是方法） $route 里面都是属性 
+			})
+		</script>
+	</body>
+</html>
