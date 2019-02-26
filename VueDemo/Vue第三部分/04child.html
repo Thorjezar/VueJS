@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>child</title>
+		<script src="../Script/node_modules/vue/dist/vue.js"></script>
+		<script src="../Script/node_modules/vue-router/dist/vue-router.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 用对象作为to 的属性 并且使用了参数 必须给路由起名 通过名字进行跳转 -->
+			<router-link :to='{name:"pro",params:{id:1}}'>第1篇文章</router-link>
+			<router-link to="/article/2">第2篇文章</router-link>
+			<router-link to="/article/3">第3篇文章</router-link>
+			<router-view></router-view>
+		</div>
+		<template id="personal">
+			<div>
+
+			</div>
+		</template>
+		<script type="text/javascript">
+			// #/article/3 路径参数 {id:3} = this.$route.param
+			let article={
+				template:"<div>第{{$route.params.id}}篇文章</div>"
+			};
+
+			let routes=[{
+				path:"/article/:id",
+				component:article,
+				name:"pro"
+			}];
+			let router = new VueRouter({
+				routes				
+			});
+			new Vue({
+				el:"#app",
+				router
+			})
+		</script>
+	</body>
+</html>

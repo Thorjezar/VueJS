@@ -35,14 +35,28 @@
 					}
 				}
 			};
-			
+			let error={
+				template:"<h2>抱歉 没有该页面</h2>"
+			}
 			//路由表 配置的是路径和组件关系
 			let routes = [{
+				path:"",   //默认展示的路由
+				component:home
+			},{
 				path:"/home",
 				component:home  //页面级组件
 			},{
 				path:"/news",
-				component:news
+				component:news   //页面级组件
+			},
+			{
+				path:"/error",
+				component:error
+			},
+			{
+				path:"*",   //友好异常页面
+				// component:error
+				redirect:"/error"  //路径跳转 同时组件也切换
 			}
 			];
 			let router = new VueRouter({
