@@ -9,20 +9,18 @@
 	<body>
 		<div id="app">
 			{{list[1].a}}
-			<!-- {{products[0].proCover}} -->
+			<p>{{products[0].proName}}</p>    <!--这里用v-if也可以绑定-->
 		</div>
 		<script type="text/javascript">
 			new Vue({
 				el:"#app",
 				data:{
-					// products:null
+					products:[{"isSelected":true,
+					"proCover":"https://www.jqhtml.com/wp-content/themes/sc/images/logo.png",
+					"proName":"深入浅出node.js",
+					"proPrice":58.9,
+					"proNum":2}],
 					list:[{"a":1},{"a":2}]
-				},
-				computed:{
-					products()
-					{
-						return [];
-					}
 				},
 				created(){
 					// console.log(this);
