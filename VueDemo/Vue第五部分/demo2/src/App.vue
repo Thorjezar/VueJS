@@ -7,6 +7,7 @@
 </template>
 
 <script>
+	import Vue from "vue";
 	export default {
 		data(){
 			return {
@@ -18,6 +19,7 @@
 				this.$notify("技术CTO",{
 					delay:2000
 				});
+				Vue.say();
 			}
 		},
 		computed: {
