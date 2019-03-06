@@ -30,4 +30,12 @@ export default {
 		input,button{
 			-webkit-appearance: none;
 		}
+		.carrousel{
+			position: fixed;
+			width: 100%;
+			top:40px;
+			bottom: 50px;
+			overflow:auto;
+		}
+		touch-action: none;
 </style>
