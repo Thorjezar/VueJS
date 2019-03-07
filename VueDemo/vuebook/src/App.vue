@@ -10,8 +10,7 @@ import Tab from "./base/Tab.vue"
 export default {
   name: 'App',
 	components:{
-		Tab
-		
+		Tab		
 	}
 }
 </script>
@@ -37,5 +36,4 @@ export default {
 			bottom: 50px;
 			overflow:auto;
 		}
-		touch-action: none;
 </style>
