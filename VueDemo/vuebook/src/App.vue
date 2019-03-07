@@ -29,7 +29,7 @@ export default {
 		input,button{
 			-webkit-appearance: none;
 		}
-		.carrousel{
+		.mainContent{
 			position: fixed;
 			width: 100%;
 			top:40px;

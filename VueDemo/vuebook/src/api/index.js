@@ -16,5 +16,14 @@ export let getSliders= ()=>{
 export let getHotbook = ()=>{
 	return axios.get("/hot");
 }
+// 获取所有的图书
+export let getbookslist = ()=>{
+	return axios.get("/getbookslist");
+}
+// 删除一本图书
+export let removeBook = (id)=>{
+	//注意点 ` 的不同
+	return axios.delete(`/book?id=${id}`); 
+}
 // getSliders().then()
 	

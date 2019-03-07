@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<MHeader :back="true">首页</MHeader>
-		<div class="carrousel">
+		<div class="mainContent">
 			<Swiper :sliders="sliders"></Swiper>
 			<h3>热门图书</h3>
 			<ul>
