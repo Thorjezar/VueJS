@@ -14,6 +14,10 @@ function read(cb) {
 		}
 	});
 }
+// 封装写入文件方法
+function write(data,cb){
+	fs.writeFile("./books.json",JSON.stringify(data),cb)
+}
 
 http.createServer((req, res) => {
 	res.setHeader("Access-Control-Allow-Origin", "*");
@@ -28,7 +32,7 @@ http.createServer((req, res) => {
 		pathname,
 		query
 	} = url.parse(req.url, true);
-	// let id = query.id;
+	let id = parseInt(query.id);
 	// 删除图书
 	switch (req.method) {
 		case "GET":
@@ -59,8 +63,10 @@ http.createServer((req, res) => {
 			break;
 		case "DELETE":
 			read(function(books) {
-				books = books.filter(item => item.bookId !== query.id);
-				
+				books = books.filter(item => item.bookId !== id);
+				write(books,function(){
+					res.end(JSON.stringify({})); //删除后返回空对象
+				})
 			});
 			break;
 		case "PUT":

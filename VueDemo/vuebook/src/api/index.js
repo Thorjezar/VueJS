@@ -25,5 +25,9 @@ export let removeBook = (id)=>{
 	//注意点 ` 的不同
 	return axios.delete(`/book?id=${id}`); 
 }
+// 获取某本书
+export let getOneBook = (id)=>{
+	return axios.get(`/book?id=${id}`);
+}
 // getSliders().then()
 	
