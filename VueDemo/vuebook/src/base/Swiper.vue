@@ -27,8 +27,9 @@
     mounted() {
       setInterval(() => {
         console.log('simulate async data')
-        let swiperSlides = this.swiperSlides
-        if (swiperSlides.length < 10) swiperSlides.push(swiperSlides.length + 1)
+        if (this.swiperSlides.length < 10) {
+          this.swiperSlides.push(this.swiperSlides.length + 1)
+        }
       }, 3000)
     }
   }

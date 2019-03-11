@@ -16,10 +16,18 @@ export let getSliders= ()=>{
 export let getHotbook = ()=>{
 	return axios.get("/hot");
 }
+export let getAll= () =>{
+	return axios.all([getSliders(),getHotbook()]);
+}
+
 // 获取所有的图书
 export let getbookslist = ()=>{
 	return axios.get("/getbookslist");
 }
+export let pagination = (index) =>{
+	return axios.get(`/page?index=${index}`);
+}
+
 // 删除一本图书
 export let removeBook = (id)=>{
 	//注意点 ` 的不同
@@ -28,6 +36,15 @@ export let removeBook = (id)=>{
 // 获取某本书
 export let getOneBook = (id)=>{
 	return axios.get(`/book?id=${id}`);
+}
+// 修改某本书
+export let updateBook =(id,data) =>{
+	return axios.put(`/book?id=${id}`,data);
+}
+
+// 增加一本书
+export let addBook = (data) => {
+      return axios.post("/book",data)
 }
 // getSliders().then()
 	

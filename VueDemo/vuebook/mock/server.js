@@ -18,7 +18,7 @@ function read(cb) {
 function write(data,cb){
 	fs.writeFile("./books.json",JSON.stringify(data),cb)
 }
-
+const pageSize=5;
 http.createServer((req, res) => {
 	res.setHeader("Access-Control-Allow-Origin", "*");
 	res.setHeader("Access-Control-Allow-Headers", "X-Requested-With");
@@ -58,8 +58,47 @@ http.createServer((req, res) => {
 					res.end(JSON.stringify(books));
 				});
 			}
+			if(pathname=="/page"){
+				let index =  parseInt(query.index) || 0;
+            console.log(index);
+            let hasMore = true;
+            read(function(books) {
+                let result = books.reverse().slice(index,index+pageSize);
+                console.log(result);
+                if (books.length<=index+pageSize) {
+                    hasMore = false;
+                }
+                res.end(JSON.stringify({hasMore,books:result}));
+            });
+				
+			}
+			// 获取某一本书
+			if(pathname=="/book"){
+				read(function(books){
+				 let book =	books.find(item=>item.bookId==id);
+				 if(!book) book = {};  //如果未找到 赋值空对象
+				 res.setHeader("Content-Type", "application/json;charset=utf8");
+				 res.end(JSON.stringify(book));
+				});
+			}
 			break;
 		case "POST":
+		let str2 = "";
+              req.on("data",chunck=> {
+                 str2 += chunck; 
+              });
+              req.on("end",()=>{
+                  let book = JSON.parse(str2);
+                  read(function(books) {
+                     book.bookId = books.length?books[books.length-1].bookId+1:1;
+                     books.push(book);
+                     console.log(books);
+                     write(books,function() {
+                          // 
+                          res.end(JSON.stringify(book));
+                     });
+                  })
+              });
 			break;
 		case "DELETE":
 			read(function(books) {
@@ -70,6 +109,24 @@ http.createServer((req, res) => {
 			});
 			break;
 		case "PUT":
+					let str = "";
+              req.on("data",chunck=>{
+                  str += chunck;
+              })
+              req.on("end",()=>{
+                  let book = JSON.parse(str);
+                  read(function(books) {
+                    books = books.map(item=>{
+                          if (item.bookId === id) {
+                              return book;
+                          }
+                          return item;
+                      })
+                      write(books,function() {
+                        res.end(JSON.stringify(book));
+                    })
+                  });         
+              })
 			break;
 	}
 

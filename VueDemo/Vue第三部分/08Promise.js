@@ -1,7 +1,7 @@
 let p= new Promise(function(resolve,reject){
 	//函数里的代码将来会自动执行
 	setTimeout(()=>{
-		let computer="HP";
+		let computer="Lenove";
 		resolve(computer);
 	},2000);
 });
