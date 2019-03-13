@@ -20,31 +20,85 @@
 <script>
    import MHeader from "../base/MHeader.vue"
    import  {pagination,removeBook}  from "../api/index.js"
+   let distance= 0;
    export default {
        data() {
            return {books:[],index:0,hasMore:true}
        },
        created() {
            this.getBooks();
-       }, 
+       },
+	    mounted() {
+			let scroll = this.$refs.scroll;
+			let top = scroll.offsetTop;
+			scroll.addEventListener("touchstart",(e)=>{
+				if(scroll.scrollTop != 0 || scroll.offsetTop != top ) return;
+				let start = e.touches[0].pageY;
+				let move = (e) =>{
+					let current = e.touches[0].pageY;
+					distance = current - start; //拉动的距离
+					if(distance > 0){
+						if(distance <= 50)
+						{
+							scroll.style.top = top + distance + "px";
+						}else{
+							scroll.style.top = top + 50 + "px";
+						}
+					     
+					}else
+					{
+						scroll.removeEventListener("touchmove",move);
+						scroll.removeEventListener("touchend",end);
+					}
+				}
+				let end = (e)=>{
+					clearInterval(this.timer2);
+					this.timer2 = setInterval(()=>{
+						if(distance<=0){
+							clearInterval(this.timer2);
+							distance = 0;
+							//获取数据
+							this.index = 0;
+							this.books = [];
+							this.getBooks();
+							return ;
+						}
+						distance -= 1;
+						scroll.style.top = top + distance + "px";
+					},3);
+				}
+				scroll.addEventListener("touchmove",move);
+				scroll.addEventListener("touchend",end);
+			});
+		},
        methods: {
 		   loadMore(){
 			   // scrollTop卷走的高度 clientHeight当前可视区域 scrollHeight盒子真实高度
-			   // 触发scroll事件 可能触发很多次 可以进来开启一个定时器
-			   setTimeout(()=>{
+			   // 触发scroll事件 可能触发很多次 可以进来开启一个定时器 下次触发时可以将
+			   // 上次的定时器清楚掉
+			   clearTimeout(this.timer);
+			   this.timer = setTimeout(()=>{
 				   let {scrollTop,clientHeight,scrollHeight} = this.$refs.scroll;
-			   },30)
-			   
+				   if(scrollTop + clientHeight + 20 >=scrollHeight){
+					   // 请求数据
+					   this.getMore();
+				   }
+			   },30) 
 		   },
            getMore() {
                this.getBooks(this.index);
            },
            async getBooks() { // 0~4 5~9 10~15
-                let {hasMore,books} = await pagination(this.index);
-                this.books = [...this.books,...books];  
-                this.hasMore = hasMore;  
-                this.index = this.books.length;        
-           },
+		   // 有更多数据获取数据
+			if(this.hasMore){
+				
+				let {hasMore,books} = await pagination(this.index);
+				this.books = [...this.books,...books];  
+				this.hasMore = hasMore;
+				
+				this.index = this.books.length;
+			}           
+          },
            async remove(id) {
                 await removeBook(id); // 删除某本书
                 // 删除前台数据
